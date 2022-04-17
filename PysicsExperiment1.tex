@@ -1,0 +1,819 @@
+%若实在找不出bug，可以试试删除同目录下除.tex外的所有文件再进行编译.
+\documentclass[12pt,a4paper,oneside,left=3.18,right=3.18,top=2.54,bottom=2.54]{ctexart}
+\usepackage{amsmath}%数学公式
+\usepackage{multirow}%合并单元格
+\usepackage{graphicx}%插入图片
+\usepackage{float}%使图片随文本浮动
+\usepackage{appendix}%添加附录
+\usepackage{rotating}%旋转图片
+\usepackage{tikz}%绘制图形
+\usepackage{pgfplots}%绘制图形
+%\usepackage{indentfirst}%添加缩进
+%\setlength{\parindent}{2em}%设置首行缩进两个字符
+\usepackage[colorlinks=true]{hyperref}%实现点击【目录/引用】跳转
+
+\title{实验\ \ 阻尼振动和受迫振动\\实验报告}%题目
+\author{崔亮 2021012343}%作者
+\date{2022年4月6日}%日期
+\linespread{1.5}%1.5倍行距
+\setcounter{tocdepth}{4}%显示第四级目录名
+%\setcounter{secnumdepth}{4}%显示第四级目录编号
+
+\begin{document}
+
+\maketitle%显示题目
+\begin{abstract}
+本实验主要通过波耳共振仪观测不同阻尼对简谐振动的影响，分析受迫振动的基本规律，测定幅频相频曲线，并探究受迫振动在共振频率激励下从静止到稳态的瞬态过程.\par
+\vspace{\fill}\noindent【注】目录及文中引用标号可直接点击跳转.
+\end{abstract}%摘要
+\newpage%换页
+\tableofcontents%显示目录
+\newpage
+\newcommand\degree{^\circ}%新定义指令\degree输入角度符号
+
+\section{实验仪器}
+	\pmb{波耳共振仪：}\par
+	主要由圆形摆轮，弹簧，光电门，闪光灯，线圈，连杆，摇杆，波耳共振仪控制箱等构成.
+
+\section{实验内容}
+
+	\subsection{实验原理}
+
+		\subsubsection{无阻尼自由振动}
+			摆轮受到弹簧的恢复力矩与摆轮偏离平衡位置的角度$\theta$成正比、方向与$\theta$相反，即$M=-k\theta$.设摆轮的转动惯量为$J$，弹簧劲度系数为$k$，忽略弹簧的等效转动惯量.则摆轮转角$\theta$的运动方程为：
+			\begin{align}
+			J\dfrac{d^2\theta}{dt^2}=-k\theta
+			\end{align}
+			其解为简谐振动形式：
+			\begin{align}
+			\theta=\theta_0e^{i(\omega_0t+\varphi_0)}
+			\end{align}
+			其中$\theta$为摆轮的初始振幅，$\omega_0=\sqrt{\dfrac{k}{J}}$为无阻尼自由振动的固有角频率，$\varphi_0$为初始相位.振动系统总的机械能为摆轮动能和弹簧弹性势能之和：
+			\begin{equation}
+			\begin{aligned}
+			E=E_k+E_p=\dfrac{1}{2}J\dot{\theta}^2+\dfrac{1}{2}k\theta^2=\dfrac{1}{2}k\theta_0^2
+			\end{aligned}
+			\label{ziyou}
+			\end{equation}
+			总能量$E$与初始振幅的平方成正比，且无阻尼时总机械能守恒.\par
+
+		\subsubsection{电磁阻尼振动}
+			电磁阻尼作用与速度成正比，其大小等于摆轮角速度$\dot{\theta}$与阻尼力矩系数$\gamma$的乘积、方向与速度相反，$M_r=-\gamma\dot{\theta}=-\gamma\dfrac{d\theta}{dt}$.有粘滞阻尼时摆轮的运动方程为：
+			\begin{equation}
+			\begin{aligned}
+			J\dfrac{d^2\theta}{dt^2}=-k\theta-\gamma\dfrac{d\theta}{dt}
+			\end{aligned}
+			\label{yundong}
+			\end{equation}
+			设阻尼系数$\beta=\dfrac{\gamma}{2J}$，整理得：
+			\begin{equation}
+			\begin{aligned}
+			\dfrac{d^2\theta}{dt^2}+2\beta\dfrac{d\theta}{dt}+\omega_0^2\theta=0
+			\end{aligned}
+			\label{zuni}
+			\end{equation}
+			设上式的通解为$\theta=Ae^{i(\omega t+\varphi)}$，代入\eqref{zuni}式并整理可得：
+			\begin{align}
+			\omega^2-2i\beta\omega-\omega_0^2=0
+			\end{align}
+			其解为：
+			\begin{align}
+			\omega=i\beta\pm\sqrt{\omega_0^2-\beta^2}
+			\end{align}
+			根据$\omega_0$和$\beta$之间的大小关系，\eqref{zuni}式的解可分为三种情况：\par
+
+			$\bullet$欠阻尼，$\beta<\omega_0$：
+			\begin{equation}
+			\begin{aligned}
+			\theta=\theta_0e^{-\beta t}cos(\omega_dt+\varphi_0)
+			\end{aligned}
+			\label{qian}
+			\end{equation}
+			其中$\omega_d=\sqrt{\omega_0^2-\beta^2}$为欠阻尼振动的角频率，$T_d=\dfrac{2\pi}{\sqrt{\omega_0^2-\beta^2}}$为振动的周期.\par
+
+			$\bullet$临界阻尼，$\beta=\omega_0$:
+			\begin{align}
+			\theta=\theta_0e^{-\omega_0t}
+			\end{align}
+
+			$\bullet$过阻尼，$\beta>\omega_0$：
+			\begin{align}
+			\theta=e^{-\beta t}\left(\theta_2e^{\sqrt{\beta^2-\omega_0^2}t}+\theta_3e^{-\sqrt{\beta^2-\omega_0^2}t}\right)
+			\end{align}
+
+			\begin{figure}[H]
+			\centering
+				\begin{tikzpicture}[xscale=1.2,yscale=0.95]
+				\draw[->](0,0)--(0,5.5)node[left]{$\theta$};
+				\draw[-](0,-3.5)--(0,0)node[left]{$O$};%绘制y轴
+				\draw[->](0,0)--(3.1*pi,0)node[below]{$t$};%绘制x轴
+				\draw[thick,purple,domain=0:3*pi,samples=300,smooth]plot(\x,{5*exp(-5*(\x/2))});
+				\draw[thick,blue,domain=0:3*pi,samples=300,smooth]plot(\x,{5*(exp(-\x/2))*(cos(sqrt(24)*(\x/2) r))});
+				\draw[thick,green,domain=0:3*pi,samples=300,smooth]plot(\x,{2.5*(exp(-\x/2))*(exp(0.08*\x)+exp(-0.08*\x))});
+				\draw[purple](0.8, 0.8)--++(2,2)node[above]{临界阻尼};
+				\draw[blue](1.8,-1)--++(1,-1)node[below]{欠阻尼};
+				\draw[green](0.8,3.5)--++(1,1)node[above]{过阻尼};
+				\end{tikzpicture}
+			\caption{欠阻尼、临界阻尼、过阻尼状态时的摆轮轨迹示意图}
+			\label{zn}
+			\end{figure}
+
+			三种阻尼状态下摆轮的轨迹示意图如图\ref{zn}所示，其特点为：\par
+			$\bullet$欠阻尼状态时，摆轮振荡的角频率$\omega_d=\sqrt{\omega_0^2-\beta^2}$小于无阻尼自由振动时的固有频率$\omega_0$，同时振幅随时间按照指数规律衰减；\par
+			$\bullet$临界阻尼状态时，恰好不发生周期性振荡，摆轮位移随时间以指数规律缓慢衰减，且以最短的时间回到（接近）平衡位置；\par
+			$\bullet$过阻尼状态时，摆轮位移随时间以指数规律缓慢衰减.\par
+			欠阻尼状态时，如果用外力使摆轮离开平衡位置然后释放，摆轮将作周期性振荡且振幅随时间按指数规律衰减，轨迹为$\theta=\theta_0e^{-\beta t}cos(\omega_dt+\varphi_0)$.设$t=nT_d+t_0$，摆轮振幅$\theta_n=\theta_0e^{-\beta(nT_d+t_0)}$，该式两边取对数可得：
+			\begin{equation}
+			\begin{aligned}
+			ln\theta_n=ln\theta_0-\beta t_0-n(\beta T_d)
+			\end{aligned}
+			\label{nihe}
+			\end{equation}
+			只要每个周期测量一次振幅值$\theta_n$，得到一组振幅数据，再对$(n,ln\theta_n)$用最小二乘法直线拟合，就可以用实验的方法求出$\beta$.\par
+
+			\begin{figure}[H]
+			\centering
+				\begin{tikzpicture}[xscale=1.2,yscale=0.95]
+				\draw[->](0,-5.5)--(0,5.5)node[midway,left]{$O$}node[left]{$\theta$};%绘制y轴
+				\draw[->](0,0)--(3.1*pi,0)node[below]{$t$};%绘制x轴
+				\draw[thick,purple,domain=0:3*pi,samples=300,smooth]plot(\x,{-5*exp(-\x/2)});
+				\draw[thick,purple,domain=0:3*pi,samples=300,smooth]plot(\x,{5*exp(-\x/2)});
+				\draw[thick,blue,domain=0:3*pi,samples=300,smooth]plot(\x,{5*(exp(-\x/2))*(cos(sqrt(24)*(\x/2) r))});
+				\draw[very thick,-](2.6,1.5)--(2.6,3);
+				\draw[very thick,-](5.2,0.5)--(5.2,3);
+				\draw[very thick,<->](2.6,2.5)--(5.2,2.5);
+				\node[above]at(3.9,2.5){$T_d$};
+				\end{tikzpicture}
+			\caption{欠阻尼振动的幅度$\theta$随时间$t$的变化曲线}
+			\label{zn2}
+			\end{figure}
+
+			品质因数$Q$是衡量振动系统性能的无量纲物理量，其定义为$2\pi$乘以振动系统存储的总能量$E$再除以一个周期内损失的能量$\Delta E$：
+			\begin{equation}
+			\begin{aligned}
+			Q=2\pi\dfrac{E}{|\Delta E|}
+			\end{aligned}
+			\label{pinzhi}
+			\end{equation}
+			品质因数$Q$高表示摆轮在一个周期内损失的能量少，因而振动可持续更多的周期（更长的时间）.不同的振动系统的$Q$不同.$LC$共振电路的$Q$值通常为$10^2$量级，音叉、钢琴弦为$10^3$，原子钟、加速器中的超导谐振器以及激光器光学共振腔的$Q$值可达到$10^{11}$甚至更高.\par
+			对于摆轮-弹簧振动系统的阻尼振动，当阻尼系数$\beta$较小时，可以认为振动系统的总能量$E$仍近似与振幅的平方成正比，\eqref{ziyou}式近似成立.但由于阻尼的存在，总机械能不再守恒.由\eqref{pinzhi}式品质因数的定义可得振动系统的$Q$值为：
+			\begin{equation}
+			\begin{aligned}
+			Q=\dfrac{2\pi\dfrac{k\theta_n^2}{2}}{\dfrac{k\theta_n^2}{2}-\dfrac{k\theta_{n+1}^2}{2}}=\dfrac{2\pi}{1-\left(\dfrac{\theta_{n+1}}{\theta_n}\right)^2}=\dfrac{2\pi}{1-e^{-2\beta T_d}}\approx\dfrac{2\pi}{2\beta T_0}=\dfrac{\omega_0}{2\beta}
+			\end{aligned}
+			\label{Q}
+			\end{equation}
+			可见振动系统的$Q$与$\beta$或阻尼常数$\gamma$成反比.阻尼（损耗）越小，$Q$越高，振动持续时间越长.
+
+		\subsubsection{受迫振动}
+			卷形弹簧的另一端有角频率为$\omega$、振幅为$A_D$的简谐信号激励下，其轨迹为$A_Dcos(\omega t)$（为简化起见，设激励源初相位为$0$）.当摆轮的位移为$\theta$时，由于激励源的存在，弹簧的转角变为$\theta-A_Dcos(\omega t)$，相应的弹簧恢复力矩为$-k(\theta-A_Dcos(\omega t))$.则摆轮的一端将跟随激励源作简谐运动，\eqref{yundong}式所示的摆轮的运动方程变为：
+			\begin{align}
+			\dfrac{d^2\theta}{dt^2}+2\beta\dfrac{d\theta}{dt}+\omega_0^2\theta=\omega_0^2A_Dcos(\omega t)
+			\end{align}
+			欠阻尼情况，其通解为：
+			\begin{equation}
+			\begin{aligned}
+			\theta=\theta_0e^{-\beta t}cos\left(\sqrt{\omega_0^2-\beta^2}t+\varphi_0\right)+\theta_mcos(\omega t-\varphi)
+			\end{aligned}
+			\label{tongjie}
+			\end{equation}
+			通解\eqref{tongjie}是形如\eqref{qian}式的阻尼振动项和频率与激励源频率相同的简谐振动项$\theta_mcos(\omega t-\varphi)$的叠加.阻尼振动项反映了一定初始条件后的过渡过程，$t\to\infty$时该项为$0$.一般$t\gg\tau$之后（$\tau$为阻尼振动振幅衰减到$e^{-1}$，即$36.8\%$所需时间），就有稳态解$\theta=\theta_mcos(\omega t-\varphi)$.受迫振动系统达到稳态时作与激励源频率相同的简谐振动.稳态解的振幅和相位差分别为：
+			\begin{equation}
+			\begin{aligned}
+			\theta_m=\dfrac{\omega_0^2A_D}{\sqrt{(\omega_0^2-\omega^2)^2+(2\beta\omega)^2}}
+			\end{aligned}
+			\label{zhenfu}
+			\end{equation}
+			\begin{align}
+			\varphi=arctan\dfrac{2\beta\omega}{\omega_0^2-\omega^2}
+			\end{align}
+			上两式表明，受迫振动达到稳态后摆轮振幅$\theta_m$以及摆轮与激励源的相位差$\varphi$是激励源频率$\omega$、振幅$A_D$以及摆轮的固有频率$\omega_0$和阻尼系数$\beta$的函数.相位差$\varphi$的取值范围为$0<\varphi<\pi$，反映摆轮振动总是滞后于激励源的振动.\par
+			振幅随频率变化的曲线称为幅频特性曲线，相位差随频率的变化成为相频特性。测试并分析幅频、相频特性有助于深入理解受迫振动的规律.\par
+			由\eqref{zhenfu}式推导可得，从幅频特性曲线也可得到振动系统的品质因数$Q$：
+			\begin{align}
+			Q\approx\dfrac{\omega_r}{|\omega_+-\omega_-|}
+			\end{align}
+			其中$\omega_r$为幅频特性曲线中振幅达到最大时对应的频率，$\omega_\pm$为振幅等于$\dfrac{\sqrt2}{2}$振幅最大值时对应的两个频率值.
+
+		\subsubsection{共振}
+			在共振频率下，很小的周期性驱动力便可产生巨大的振动.一般来说一个系统（力学的、声学的、电子的等）通常有多个共振频率.在这些共振频率上激发振动比较容易，在其他频率则比较困难.假如激励源的振动频率比较复杂的话，系统一般会“挑出”其共振频率并随此频率振动，而其他频率成分则很快衰减.
+
+	\subsection{实验步骤}
+		\subsubsection{A.观测有粘滞阻尼时的阻尼振动规律}
+			\paragraph{A0}
+				\pmb{说明$\beta$的单位（量纲）.}\par
+			\paragraph{A1}
+			\label{p1}
+				\pmb{测量最小阻尼时的阻尼系数$\beta$和固有角频率$\omega_0$.}\par
+				\romannumeral1.调整仪器使波尔共振仪处于工作状态：打开电源开关，关闭电机和闪光灯开关，阻尼开关置于“$0$”挡，手动微调光电门H、I，避免与摆轮或相位差测量盘接触.手动调整电机偏心轮使有机玻璃转盘F上的$0$刻线指示量角器的$0$度，检查摇杆M和摆轮的长缺口C是否竖直（确保摆轮处于无激励状态），检查光电门H是否处于摆轮的平衡位置.拨动摆轮使其偏离平衡位置$150\degree\sim180\degree$，松开手后，检查摆轮的自由摆动情况.正常情况下，振动衰减应该很慢.（摆轮、光电门、弹簧之间不能有摩擦）\par
+				\romannumeral2.测量振幅值$\theta_j$：将控制仪周期显示键置于\framebox[\width]{摆轮}，拨动摆轮使其偏离平衡位置$150\degree\sim180\degree$后摆动，由大到小依次读取显示窗中的振幅值$\theta_1,\theta_2,\dots,\theta_n$.\par
+				\romannumeral3.测量振动周期$T_d$：将周期选择键置于\framebox[\width]{10}，按复位键启动周期测量，数字变动停止时读取数据$10\overline{T_d}$，并立即再次按复位键启动周期测量，记录过程中每次的$10\overline{T_d}$值.\par
+				\romannumeral4.阻尼开关“$0$”挡连续测量$50$个振幅$\theta_i$和$5$个$10\overline{T_d}$.同时记录振幅和周期数据很难，振幅测量完毕，起摆角和振幅测量时相近，再进行周期的测量.（也可录制视频辅助读数）\par
+				\romannumeral5.由\eqref{nihe}式通过直线拟合计算阻尼系数及其不确定度$\beta\pm U_\beta$.周期选择开关为\framebox[\width]{1}/\framebox[\width]{10}时，周期不确定度约定为$0.002s/0.0002s$.
+			\paragraph{A2}
+				\pmb{用最小阻尼时的阻尼系数$\beta$和振动周期$T_d$计算固有角频率$\omega_0$.}\par
+				阻尼振动角频率$\omega_d=\sqrt{\omega_0^2-\beta^2}$，阻尼很小时，可用$\omega_d$代替$\omega_0$.此外，原理上可认为弹簧劲度系数$k$为常数，与摆角无关，因此$\omega_0$为常数.实际上由于制造工艺和材料性能的影响，$k$随着角度的改变有微小的变化，使不同振幅时系统的固有频率有微小的变化.有时需要考虑这些变化，如探究共振点附近受迫振动相频特性与$\omega_0$的关系时需要测出固有角频率与不同振幅的相关数据，减少实验值与理论值的偏差.
+			\paragraph{A3}
+			\label{p3}
+				\pmb{测量其他2种阻尼状态的振幅.}\par
+				由于阻尼状态下摆轮振动次数少，只要求振幅值的数据大于8组即可.尽量使最后一组数据的振幅大于$15\degree$，角度过小会导致测量误差过大.此外需要测量4个振动的周期，周期选择置于\framebox[\width]{1}位置.测量后求出$\beta\pm U_\beta$.
+			\paragraph{A4}
+				\pmb{利用\ref{p1}和\ref{p3}中拟合得到的不同阻尼状态下的$\beta$，由\eqref{Q}式计算相应的\\品质因数$Q$.}\par
+		\subsubsection{B.分析振动系统受迫振动的基本规律}
+			\paragraph{B1}
+				\pmb{证明共振频率等于固有频率.}\par
+				由\eqref{zhenfu}式可知，当振幅$\theta_m$达到最大，振动系统发生共振，系统频率$\omega$为共振频率.写出共振频率、共振处振幅最大值、相位差的表达式.推导证明在弱阻尼状态下，共振频率近似等于振动系统的固有频率$\omega_0$.
+			\paragraph{B2}
+				\pmb{说明如何判断受迫振动达到了稳态.}\par
+			\paragraph{B3}
+				\pmb{测试幅频特性和相频特性.}\par
+				\romannumeral1.开启电机开关，将控制仪周期显示键置于\framebox[\width]{强迫力}，周期选择置\framebox[\width]{1}，调节强迫激励周期旋钮以改变电机运动角频率$\omega$.选择与\ref{p3}中一致的两个阻尼系数，测定幅频相频特性曲线.\par
+				\romannumeral2.不可选择阻尼“0”挡测试受迫振动.阻尼“1”挡时，共振点附近不要测量，以免振幅过大损伤弹簧.\par
+				\romannumeral3.每次调节电机状态后，摆轮要经过多次摆动后振幅和周期才能稳定，这时再记录数据.\par
+				\romannumeral4.要求每条曲线至少有15个数据点.测试周期范围为$0.93T_0\sim 1.07T_0$，即$(1\pm7\%)T_0$，数据点分布在共振点两侧的数目应大致相等，且共振点周围取点要密集一些.
+			\paragraph{B4}
+				\pmb{绘制幅频相频特性曲线.}\par
+				将不同阻尼系数下的幅频特性曲线画在一幅图中，相频特性曲线画在一幅图中.
+			\paragraph{B5}
+				\pmb{从幅频特性曲线中读出不同阻尼系数下的$\omega_r$、$\omega_\pm$，计算品质因数$Q$.\\与\ref{p4}结果相比较}\par
+		\subsubsection{C.探究受迫振动的瞬态过程}
+			\paragraph{C1}
+				\pmb{观察振动系统在共振频率激励下从静止到稳态的过程.}\par
+				\romannumeral1.阻尼状态为\ref{p3}中的一个非零阻尼.电机频率设置为与摆轮-弹簧振动系统的固有角频率相同.关闭电机，使摆轮尽可能静止.\par
+				\romannumeral2.打开电机开关，观察摆轮从静止到稳态的瞬态过程.其幅度如何变化？试解释瞬态过程为什么是这样的.\par
+				\romannumeral3.使摇杆和摆轮处于初始状态.打开电机开关，重新使摆轮从静止状态开始振动，测试并记录受迫振动瞬态过程的振幅.每个周期测量一次振幅$\theta_j$，直到达到稳态.\par
+				\romannumeral4.画出摆轮振幅随时间变化的曲线\par
+				\romannumeral5.根据初始条件，由\eqref{tongjie}式推导出受迫振动瞬态过程中振幅随时间的变化关系式，计算受迫振动瞬态过程中振幅的理论值（稳态解的振幅$\theta_m$使用测量结果），并与测试数据画在一幅图中相比较.
+			\paragraph{C2}
+				\pmb{求振动系统达到稳态后，电机在一个周期内提供的平均输入功率的表\\达式.}\par
+
+	\subsection{数据处理}
+		\subsubsection{A1}
+			阻尼挡调至“0”时，对$y_i=ln\theta_i$和$x_i=-iT_d$进行直线拟合，得
+			$$\overline{x}=-\dfrac{5.5\times14.941+15.5\times14.952+25.5\times14.962+35.5\times14.97+45.5\times14.979}{50}$$
+			$$\overline{x}\approx-38.1688$$
+			$$\overline{y}=\dfrac{1}{50}[ln(152\times152\times150\times150\times148\times148\times146\times146\times144\times144)$$
+			$$+ln(142\times142\times141\times140\times139\times138\times137\times136\times135\times134)$$
+			$$+ln(132\times131\times130\times130\times128\times128\times127\times126\times124\times123)$$
+			$$+ln(121\times121\times120\times119\times118\times118\times118\times116\times116\times115)$$
+			$$+ln(113\times112\times112\times111\times110\times110\times108\times108\times107\times106)]$$
+			$$\overline{y}\approx0.99940592+0.98599069+0.97020127+0.95444725+0.93950814\approx4.8496$$
+			计算结果如下：
+			\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c||c|}
+			\hline
+			$x_i$&$y_i$&$(x_i-\overline{x})y_i$&$(x_i-\overline{x})^2$&$y_i-b_0-b_1x_i$\\
+			\hline
+			-1.4941&5.0239&184.2500&1345.0336&-0.0102\\
+			\hline
+			-2.9882&5.0239&176.7438&1237.6746&-0.0027\\
+			\hline
+			-4.4823&5.0106&168.7896&1134.7803&-0.0084\\
+			\hline
+			-5.9764&5.0106&161.3032&1036.3506&-0.0009\\
+			\hline
+			-7.4705&4.9972&153.4055&942.3856&-0.0068\\
+			\hline
+			-8.9646&4.9972&145.9392&852.8853&0.0007\\
+			\hline
+			-10.4587&4.9836&138.0961&767.8496&-0.0054\\
+			\hline
+			-11.9528&4.9836&130.6501&687.2787&0.0021\\
+			\hline
+			-13.4469&4.9698&122.8629&611.1723&-0.0041\\
+			\hline
+			-14.9410&4.9698&115.4375&539.5307&0.0034\\
+			\hline
+			-16.4472&4.9558&107.6479&457.7289&-0.0031\\
+			\hline
+			-17.9424&4.9558&100.2380&409.1073&0.0045\\
+			\hline
+			-19.4376&4.9488&92.6970&350.8579&0.0050\\
+			\hline
+			-20.9328&4.9416&85.1734&297.0797&0.0053\\
+			\hline
+			-22.4280&4.9345&77.6730&247.7728&0.0057\\
+			\hline
+			\end{tabular}
+			\end{table}
+			（续）
+			\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c||c|}
+			\hline
+			$x_i$&$y_i$&$(x_i-\overline{x})y_i$&$(x_i-\overline{x})^2$&$y_i-b_0-b_1x_i$\\
+			\hline
+			-23.9232&4.9273&70.1923&202.9371&0.0061\\
+			\hline
+			-25.4184&4.9200&62.7320&162.5727&0.0063\\
+			\hline
+			-26.9136&4.9127&55.2934&126.6795&0.0065\\
+			\hline
+			-28.4088&4.9053&47.8757&95.2576&0.0066\\
+			\hline
+			-29.9040&4.8978&40.4793&68.3069&0.0066\\
+			\hline
+			-31.4202&4.8828&32.9521&45.5436&-0.0007\\
+			\hline
+			-32.9164&4.8752&25.6065&27.5877&-0.0008\\
+			\hline
+			-34.4126&4.8675&18.2833&14.1090&-0.0010\\
+			\hline
+			-35.9088&4.8675&11.0006&5.1076&0.0066\\
+			\hline
+			-37.4050&4.8520&3.7060&0.5834&-0.0014\\
+			\hline
+			-38.9012&4.8520&-3.5536&0.5497&0.0061\\
+			\hline
+			-40.3974&4.8442&-10.7958&4.9667&0.0058\\
+			\hline
+			-41.8936&4.8363&-18.0143&13.8741&0.0055\\
+			\hline
+			-43.3898&4.8203&-25.1668&27.2588&-0.0030\\
+			\hline
+			-44.8860&4.8122&-32.3245&45.1208&-0.0036\\
+			\hline
+			-46.4070&4.7958&-39.5088&67.8679&-0.0123\\
+			\hline
+			-47.9040&4.7958&-46.6881&94.7741&-0.0048\\
+			\hline
+			-49.4010&4.7875&-53.7742&126.1623&-0.0056\\
+			\hline
+			-50.8980&4.7791&-60.8341&162.0325&-0.0064\\
+			\hline
+			-52.3950&4.7707&-67.8689&202.3848&-0.0073\\
+			\hline
+			-53.8920&4.7707&-75.0107&247.2190&0.0002\\
+			\hline
+			-55.3890&4.7707&-82.1524&296.5353&0.0078\\
+			\hline
+			-56.8860&4.7536&-88.9741&350.3336&-0.0018\\
+			\hline
+			-58.3830&4.7536&-96.0902&408.6139&0.0057\\
+			\hline
+			-59.8800&4.7449&-103.0175&471.3762&0.0046\\
+			\hline
+			\end{tabular}
+			\end{table}
+			（续）
+			\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c||c|}
+			\hline
+			$x_i$&$y_i$&$(x_i-\overline{x})y_i$&$(x_i-\overline{x})^2$&$y_i-b_0-b_1x_i$\\
+			\hline
+			-61.4139&4.7274&-109.8889&540.3347&0.0052\\
+			\hline
+			-62.9118&4.7185&-116.7498&612.2160&-0.0066\\
+			\hline
+			-64.4097&4.7185&-123.8177&688.5848&0.0009\\
+			\hline
+			-65.9076&4.7095&-130.6359&769.4410&-0.0005\\
+			\hline
+			-67.4055&4.7005&-137.4271&854.7846&-0.0020\\
+			\hline
+			-68.9034&4.7005&-144.4680&944.6156&0.0056\\
+			\hline
+			-70.4013&4.6821&-150.9158&1038.9341&-0.0053\\
+			\hline
+			-71.8992&4.6821&-157.9291&1137.7399&0.0022\\
+			\hline
+			-73.3971&4.6728&-164.6148&1241.0331&0.0005\\
+			\hline
+			-74.8950&4.6634&-171.2690&1348.8138&-0.0014\\
+			\hline
+			\end{tabular}
+			\caption{直线拟合计算过程1}
+			\end{table}
+			由表中数据可得$(n=50,p=0.95)$
+			$$\sum{(x_i-\overline{x})y_i}=117.5383$$
+			$$\sum{(x_i-\overline{x})^2}=23361.7403$$
+			$$b_1=\dfrac{\sum{(x_i-\overline{x})y_i}}{\sum{(x_i-\overline{x})^2}}\approx0.005031$$
+			$$b_0=\overline{y}-b_1\overline{x}\approx5.0416$$
+			$$\beta_0\approx b_1\approx0.00503$$
+			$$\sum{(y_i-b_0-b_1x_i)^2}=0.001344$$
+			$$s_y=\sqrt{\dfrac{\sum{(y_i-b_0-b_1x_i)^2}}{n-2}}\approx0.005292$$
+			$$s_{b1}=\dfrac{s_y}{\sqrt{\sum{(x_i-\overline{x})^2}}}\approx0.00003462$$
+			$$t_{p,v}=t_{0.95,v}\approx1.959+\dfrac{2.406}{n-1-1.064}\approx2.009$$
+			$$U_{\beta_0}=U_{\beta_0A}=U_{b1A}=t_{p,v}s_{b1}\approx0.00007$$
+			故$\beta_0\pm U_{\beta_0}=(0.00503\pm0.00007)Hz$.
+		\subsubsection{A2}
+			由$\omega_d=\sqrt{\omega_0^2-\beta^2}$、$\omega_dT_d=2\pi$得
+			$$\omega_d=\dfrac{2\pi}{T_d}\approx4.200$$
+			$$\omega_0=\sqrt{\omega_d^2+\beta^2}\approx4.200$$
+		\subsubsection{A3}
+			阻尼挡调至“2”时，对$y_i'=ln\theta_i'$和$x_i'=-iT_d'$进行直线拟合，计算结果如下：
+			\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c||c|}
+			\hline
+			$x_i'$&$y_i'$&$(x_i'-\overline{x'})y_i'$&$(x_i'-\overline{x'})^2$&$y_i'-b_0'-b_1'x_i'$\\
+			\hline
+			-1.494&4.956&33.468&45.603&0.0011\\
+			\hline
+			-2.990&4.868&25.591&27.636&0.0044\\
+			\hline
+			-4.491&4.762&17.886&14.108&-0.0100\\
+			\hline
+			-5.988&4.682&10.577&5.103&0.0013\\
+			\hline
+			-7.490&4.595&3.478&0.573&0.0059\\
+			\hline
+			-8.994&4.500&-3.362&0.558&0.0026\\
+			\hline
+			-10.500&4.407&-9.929&5.076&-0.0015\\
+			\hline
+			-12.008&4.317&-16.236&14.145&0.0035\\
+			\hline
+			-13.509&4.220&-22.206&27.689&-0.0020\\
+			\hline
+			-15.010&4.127&-27.911&45.738&-0.0034\\
+			\hline
+			\end{tabular}
+			\caption{直线拟合计算过程2}
+			\end{table}
+			由表中数据可得$(n=10,p=0.95)$
+			$$\overline{x'}=\dfrac{-82.474}{10}\approx-8.247$$
+			$$\overline{y'}=\dfrac{45.434}{10}\approx4.543$$
+			$$\sum{(x_i'-\overline{x'})y_i'}=11.356$$
+			$$\sum{(x_i'-\overline{x'})^2}=186.229$$
+			$$b_1'=\dfrac{\sum{(x_i'-\overline{x'})y_i'}}{\sum{(x_i'-\overline{x'})^2}}\approx0.061$$
+			$$b_0'=\overline{y'}-b_1'\overline{x'}\approx5.046$$
+			$$\beta_1\approx b_1'\approx0.0610$$
+			$$\sum{(y_i'-b_0'-b_1'x_i')^2}=0.000194$$
+			$$s_{y'}=\sqrt{\dfrac{\sum{(y_i'-b_0'-b_1'x_i')^2}}{n-2}}\approx0.00492$$
+			$$s_{b_1'}=\dfrac{s_{y'}}{\sqrt{\sum{(x_i'-\overline{x'})^2}}}\approx0.000361$$
+			$$t_{p,v}'=t_{0.95,v}'\approx1.959+\dfrac{2.406}{n-1-1.064}\approx2.262$$
+			$$U_{\beta_1}=U_{\beta_1A}=U_{b_1'A}=t_{p,v}'s_{b_1'}\approx0.0008$$
+			故$\beta_1\pm U_{\beta_1}=(0.0610\pm0.0008)Hz$.\par
+			阻尼挡调至“4”时，对$y_i''=ln\theta_i''$和$x_i''=-iT_d''$进行直线拟合，计算结果如下：
+			\begin{table}[H]
+			\centering
+			\begin{tabular}{|c|c|c|c||c|}
+			\hline
+			$x_i''$&$y_i''$&$(x_i''-\overline{x''})y_i''$&$(x_i''-\overline{x''})^2$&$y_i''-b_0''-b_1''x_i''$\\
+			\hline
+			-1.495&4.905&33.153&45.684&-0.0081\\
+			\hline
+			-2.994&4.736&24.911&27.668&-0.0077\\
+			\hline
+			-4.497&4.575&17.188&14.115&0.0012\\
+			\hline
+			-5.996&4.407&9.951&5.099&0.0025\\
+			\hline
+			-7.505&4.234&3.171&0.561&0.0001\\
+			\hline
+			-9.006&4.060&-3.053&0.566&-0.0043\\
+			\hline
+			-10.514&3.912&-8.841&5.108&0.0181\\
+			\hline
+			-12.008&3.738&-14.032&14.093&0.0129\\
+			\hline
+			-13.509&3.555&-18.682&27.615&-0.0005\\
+			\hline
+			-15.020&3.367&-22.781&45.779&-0.0177\\
+			\hline
+			\end{tabular}
+			\caption{直线拟合计算过程3}
+			\end{table}
+			由表中数据可得$(n=0,p=0.95)$
+			$$\overline{x''}=\dfrac{-82.544}{10}\approx-8.254$$
+			$$\overline{y''}=\dfrac{41.489}{10}\approx4.149$$
+			$$\sum{(x_i''-\overline{x''})y_i''}=20.985$$
+			$$\sum{(x_i''-\overline{x''})^2}=186.288$$
+			$$b_1''=\dfrac{\sum{(x_i''-\overline{x''})y_i''}}{\sum{(x_i''-\overline{x''})^2}}\approx0.113$$
+			$$b_0''=\overline{y''}-b_1''\overline{x''}\approx5.082$$
+			$$\beta_2\approx b_1''\approx0.1126$$
+			$$\sum{(y_i''-b_0''-b_1''x_i'')^2}=0.000959$$
+			$$s_{y''}=\sqrt{\dfrac{\sum{(y_i''-b_0''-b_1''x_i'')^2}}{n-2}}\approx0.011$$
+			$$s_{b_1''}=\dfrac{s_{y''}}{\sqrt{\sum{(x_i''-\overline{x''})^2}}}\approx0.000802$$
+			$$t_{p,v}''=t_{0.95,v}''\approx1.959+\dfrac{2.406}{n-1-1.064}\approx2.262$$
+			$$U_{\beta_2}=U_{\beta_2A}=U_{b_1''A}=t_{p,v}''s_{b_1''}\approx0.0018$$
+			故$\beta_2\pm U_{\beta_2}=(0.1126\pm0.0018)Hz$.
+		\subsubsection{A4}
+			\label{p4}
+			阻尼挡调至“0”时（即$\beta=\beta_0$），
+			$$Q\approx\dfrac{\omega_0}{2\beta_0}\approx417.412$$
+			\indent
+			阻尼挡调至“2”时（即$\beta=\beta_1$），
+			$$Q\approx\dfrac{\omega_0}{2\beta_1}\approx34.426$$
+			\indent
+			阻尼挡调至“4”时（即$\beta=\beta_2$），
+			$$Q\approx\dfrac{\omega_0}{2\beta_2}\approx18.584$$
+		\subsubsection{B4}
+		
+			\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}
+			[
+			xlabel={$\dfrac{\omega}{\omega_r}$},
+			ylabel={摆轮振幅},
+			xmin=0.93,xmax=1.08,
+			ymin=0,ymax=180,
+			xtick={0.92,0.94,0.96,0.98,1.00,1.02,1.04,1.06,1.08},
+			ytick={0,20,40,56.6,60,80,100,107.5,120,140,160},
+			legend pos=outer north east,
+			xmajorgrids=true,
+			ymajorgrids=true,
+			grid style=dashed,
+			]
+			
+			\addplot
+			[
+			color=blue,
+			mark=*,
+			smooth,
+			]
+			coordinates
+			{
+			(1.072,28)
+			(1.049,36)
+			(1.035,51)
+			(1.02,76)
+			(1.014,102)
+			(1.007,140)
+			(1,150)
+			(0.997,144)
+			(0.993,134)
+			(0.987,112)
+			(0.98,93)
+			(0.974,78)
+			(0.961,57)
+			(0.949,44)
+			(0.932,35)
+			};
+			
+			\addplot
+			[
+			color=purple,
+			mark=*,
+			smooth,
+			]
+			coordinates
+			{
+			(1.072,24)
+			(1.049,36)
+			(1.035,42)
+			(1.02,60)
+			(1.014,66)
+			(1.007,74)
+			(1,80)
+			(0.997,80)
+			(0.993,80)
+			(0.987,78)
+			(0.98,68)
+			(0.974,62)
+			(0.961,49)
+			(0.949,40)
+			(0.932,34)
+			};
+			\legend{$\beta_1$,$\beta_2$}
+			
+			\end{axis}
+			\end{tikzpicture}
+			\caption{不同阻尼系数下的幅频特性曲线}
+			\label{fu}
+			\end{figure}
+			
+			\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}
+			[
+			xlabel={$\dfrac{\omega}{\omega_r}$},
+			ylabel={电机相位},
+			xmin=0.93,xmax=1.08,
+			ymin=0,ymax=180,
+			xtick={0.92,0.94,0.96,0.98,1.00,1.02,1.04,1.06,1.08},
+			ytick={0,20,40,60,80,100,120,140,160,180},
+			legend pos=outer north east,
+			xmajorgrids=true,
+			ymajorgrids=true,
+			grid style=dashed,
+			]
+			
+			\addplot
+			[
+			color=blue,
+			mark=*,
+			smooth,
+			]
+			coordinates
+			{
+			(1.072,166)
+			(1.049,164)
+			(1.035,159)
+			(1.02,149)
+			(1.014,137.5)
+			(1.007,112)
+			(1,83)
+			(0.997,71)
+			(0.993,61)
+			(0.987,47)
+			(0.98,38)
+			(0.974,31)
+			(0.961,22)
+			(0.949,16)
+			(0.932,12)
+			};
+			
+			\addplot
+			[
+			color=purple,
+			mark=*,
+			smooth,
+			]
+			coordinates
+			{
+			(1.072,157.5)
+			(1.049,152)
+			(1.035,145.5)
+			(1.02,133)
+			(1.014,123)
+			(1.007,111)
+			(1,95)
+			(0.997,89)
+			(0.993,81)
+			(0.987,68)
+			(0.98,56)
+			(0.974,48)
+			(0.961,36)
+			(0.949,28)
+			(0.932,21)
+			};
+			\legend{$\beta_1$,$\beta_2$}
+			
+			\end{axis}
+			\end{tikzpicture}
+			\caption{不同阻尼系数下的相频特性曲线}
+			\end{figure}
+			
+		\subsubsection{B5}
+			当阻尼系数为$\beta_1$时，由图\ref{fu}可得振幅最大值$\theta_m=152$，则$\dfrac{\theta_m}{\sqrt{2}}\approx107.5$，从图\ref{fu}中读出对应频率值$\omega_-\approx0.985\omega_r$、$\omega_+\approx1.013\omega_r$，代入计算得
+			$$Q\approx\dfrac{\omega_r}{|\omega_+-\omega_-|}\approx\dfrac{1}{|1.013-0.985|}\approx35.714$$
+			\indent
+			当阻尼系数为$\beta_2$时，由图\ref{fu}可得振幅最大值$\theta_m=80$，则$\dfrac{\theta_m}{\sqrt{2}}\approx56.6$，从图\ref{fu}中读出对应频率值$\omega_-\approx0.969\omega_r$、$\omega_+\approx1.022\omega_r$，代入计算得
+			$$Q\approx\dfrac{\omega_r}{|\omega_+-\omega_-|}\approx\dfrac{1}{|1.022-0.969|}\approx18.868$$
+			与\ref{p4}中的结果比较，本题中算得的$Q$值大于\ref{p4}中对应的$Q$值，这是由于\ref{p4}中摆轮有空气阻力作用，使得其固有频率有微小变化.而本题中由于受迫力的加入，使得一部分空气阻力被抵消，故品质因数较大.
+		\subsubsection{C1}
+			由\eqref{tongjie}式可得$\theta=-\theta_me^{-\beta t}cos(\sqrt{\omega_0^2-\beta^2}t)+\theta_mcos\omega t\approx\theta_m(1-e^{-\beta t})cos\omega t$，摆轮振幅随时间变化的函数为
+			$$\theta_{max}=\theta_m(1-e^{-\beta t})$$
+			在同一幅图中作出理论与实测曲线：
+			\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}
+			[
+			xlabel={时间（$s$）},
+			ylabel={摆轮振幅},
+			xmin=0,xmax=96,
+			ymin=0,ymax=160,
+			xtick={0,12,24,36,48,60,72,84,96},
+			ytick={0,20,40,60,80,100,120,140,152,160},
+			legend pos=outer north east,
+			xmajorgrids=true,
+			ymajorgrids=true,
+			grid style=dashed,
+			]
+			
+			\addplot
+			[
+			domain=0:96,
+			samples=100,
+			color=purple,
+			very thick,
+			]
+			{152*(1-e^(-0.061*x))};
+			
+			\addplot
+			[
+			color=blue,
+			mark=o,
+			smooth,
+			]
+			coordinates
+			{
+			(0,0)
+			(1.5,7)
+			(3,20)
+			(4.5,31)
+			(6,41)
+			(7.5,50)
+			(9,58)
+			(10.5,66)
+			(12,73)
+			(13.5,80)
+			(15,86)
+			(16.5,91)
+			(18,96)
+			(19.5,101)
+			(21,105)
+			(22.5,109)
+			(24,112)
+			(25.5,116)
+			(27,118)
+			(28.5,121)
+			(30,123)
+			(31.5,126)
+			(33,129)
+			(34.5,131)
+			(36,133)
+			(37.5,134)
+			(39,136)
+			(40.5,137)
+			(42,138)
+			(43.5,140)
+			(45,141)
+			(46.5,142)
+			(48,142)
+			(49.5,144)
+			(51,144)
+			(52.5,145)
+			(54,146)
+			(55.5,146)
+			(57,146)
+			(58.5,147)
+			(60,148)
+			(61.5,148)
+			(63,148)
+			(64.5,149)
+			(66,149)
+			(67.5,149)
+			(69,150)
+			(70.5,150)
+			(72,150)
+			(73.5,150)
+			(75,150)
+			(76.5,150)
+			(78,150)
+			(79.5,151)
+			(81,151)
+			(82.5,151)
+			(84,151)
+			(85.5,151)
+			(87,151)
+			(88.5,151)
+			(90,152)
+			(91.5,152)
+			(93,152)
+			(94.5,152)
+			(96,152)
+			};
+
+			\legend{理论值,实测值}
+			
+			\end{axis}
+			\end{tikzpicture}
+			\caption{$\beta_1$受迫振动瞬态过程理论曲线与实测曲线}
+			\end{figure}
+
+\section{问题讨论}
+		\subsection{A0}
+		由$\vec{M}=-\gamma\vec{\omega}$、$\beta=\dfrac{\gamma}{2J}$、$\vec{M}=\vec{r}\times\vec{F}$、$J=mr^2$、$\vec{v}=\vec{\omega}\times\vec{r}$得，
+		$$\vec{M}=-\gamma\vec{\omega}$$
+		$$\beta=\dfrac{\gamma}{2J}$$
+		$$[\vec{M}]=LMLT^{-2}=L^2MT^{-2}$$
+		$$[J]=ML^2=L^2M$$
+		$$LT^{-1}=[\vec{\omega}]L$$
+		化简得$\beta$量纲为$T^{-1}$，即单位为$s^{-1}$或$Hz$.
+		\subsection{B1}
+		\eqref{zhenfu}式可视为关于$\omega$的函数$\theta_m=f(\omega)$，对$\omega$展开并配方得
+		$$\theta_m=\dfrac{\omega_0^2A_D}{\sqrt{\omega^4+(4\beta^2-2\omega_0^2)\omega^2+\omega_0^4}}=\dfrac{\omega_0^2A_D}{\sqrt{(\omega^2-\omega_0^2+2\beta^2)^2+4\beta^2\omega_0^2-4\beta^4}}$$
+		共振频率$\omega_r=\sqrt{\omega_0^2-2\beta^2}$,在弱阻尼状态下，$\beta$可忽略不计，故$\omega_r\approx\omega_0$,共振处振幅最大值$\dfrac{\omega_0^2A_D}{2\beta\sqrt{\omega_0^2-\beta^2}}\approx\dfrac{\omega_0A_D}{2\beta}$,此时相位差$\varphi_m=arctan\dfrac{\omega_r}{\beta}=arctan\sqrt{\left(\dfrac{\omega_0}{\beta}\right)^2-2}\approx\dfrac{\pi}{2}$.
+		\subsection{B2}
+		当摆轮的振幅不再变化时，可以判断受迫振动达到了稳态.
+		\subsection{C1}
+		由\eqref{tongjie}式得，摆轮的瞬态过程满足
+		$$\theta_{max}=\theta_m(1-e^{-\beta t})$$
+		由瞬态过程表达式可知，函数值随时间逐渐增大，故摆盘在从静止到达到稳态要经过一段加速的过程，不会直接达到稳态.
+		\subsection{C2}
+		由$E=\dfrac{1}{2}k\theta_m^2$、$Q=2\pi\dfrac{E}{\Delta E}$、$\omega_0T=2\pi$得
+		$$\overline{P}=\dfrac{\Delta E}{T}=\dfrac{k\omega_0\theta_m^2}{2Q}$$
+\newpage
+\begin{appendices}
+	\renewcommand{\thesection}{附录 \Alph{section}}
+	\section{原始数据}
+
+		\begin{figure}[H]
+		\centering
+		\begin{turn}{0}
+		\includegraphics[scale=0.1]{ori1.jpg}
+		\end{turn}
+		\caption{原始数据1}
+		\label{原始1}
+		\end{figure}
+
+		\begin{figure}[H]
+		\centering
+		\begin{turn}{0}
+		\includegraphics[scale=0.1]{ori2.jpg}
+		\end{turn}
+		\caption{原始数据2}
+		\label{原始2}
+		\end{figure}
+
+\end{appendices}
+
+\end{document}
