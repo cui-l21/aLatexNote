@@ -1,0 +1,272 @@
+\documentclass[12pt,a4paper,oneside,left=3.18,right=3.18,top=2.54,bottom=2.54]{ctexart}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{appendix}
+\usepackage{rotating}
+
+%Ctrl+单击可实现代码与pdf双向定位
+
+\title{实验2：含有非独立电源的电路的研究 \\ 实验报告}
+\author{崔亮 2021012343}
+\date{\today}
+\linespread{1.5}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+本实验主要研究非独立电源的特性，从而得出含有非独立电源电路的线性分析条件与方法。
+\end{abstract}
+\newpage
+\tableofcontents
+\newpage
+
+\section{预习报告}
+	\subsection{电路图}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{cir1.png}
+		\caption{含非独立电源的电路}
+		\label{figure1}
+		\includegraphics[scale=1]{cir2.png}
+		\caption{等效电路}
+		\label{figure2}
+		\end{figure}
+		\noindent
+		图中数据：
+		$$R_{1}=50k \Omega $$
+		$$R_{2}=100k \Omega $$
+		$$R_{3}=2k \Omega $$
+		$$R_{4}=2k \Omega $$
+		$$U_{S1}=1.2V$$
+		$$U_{S2}=4V$$
+		$$\mu \approx -R_{1}/R_{2}=-2$$
+	\subsection{结果估算}
+		\subsubsection{电路方程}
+			\noindent
+			对两个回路列写$\boldsymbol{KVL}$方程
+			$$u_1-iR_4-U_{S1}=0$$
+			$$U_{S2}+i(R_3+R_4)-\mu u_1=0$$
+			代入数据解得
+			$$u_1=-0.4V$$
+			$$i=-0.8mA$$
+			$$u_{bc}=iR_3+U_{S2}=2.4V$$
+		\subsubsection{叠加定理}
+			\noindent
+			$U_{S1}$作用，$U_{S2}=0$时，
+			$$\mu u_1'=i'(R_3+R_4)$$
+			$$u_1'=U_{S1}+i'R_4$$
+			代入数据得
+			$$u_1'=0.6V$$
+			$$i'=-0.3mA$$
+			$$u_{bc}'=i'R_3=-0.6V$$
+			$U_{S1}=0$，$U_{S2}$作用时，
+			$$\mu u_1''-U_{S2}=i''(R_3+R_4)$$
+			$$u_1''=i''R_4$$
+			代入数据得
+			$$u_1''=-1V$$
+			$$i''=-0.5mA$$
+			$$u_{bc}''=i''R_3+U_{S2}=3V$$
+			$U_{S1}$和$U_{S2}$共同作用时，
+			$$u_{bc}=u_{bc}'+u_{bc}''=2.4V$$
+			
+		\subsubsection{戴维南定理}
+			\noindent
+			$bc$两端开路时，
+			$$U_0=\mu u_1=\mu U_{S1}=-2.4V$$
+			$bc$两端短路时，
+			$$u_1=U_{S1}+\mu u_1$$
+			$$I_0=\dfrac{\mu u_1}{R_4}=-0.4mA$$
+			$$R_0=\dfrac{|U_0|}{|I_0|}=6k\Omega$$
+			$$u_{bc}=U_{S2}-iR_3=U_{S2}-\dfrac{U_{S2}-U_0}{R_3+R_0}R_3=2.4V$$
+
+		\subsubsection{估算结果}
+		\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|}
+		\hline
+		求解方法&求解结果\\
+		\hline
+		列写电路方程&$u_{bc}=2.4V$\\
+		\hline
+		\multirow{3}{*}{叠加定理}&$U_{S1}$作用，$U_{S2}=0$时，$u'_{bc}=-0.6V$\\
+		\multirow{3}{*}{}&$U_{S1}=0$，$U_{S2}$作用时，$u''_{bc}=3V$\\
+		\multirow{3}{*}{}&$U_{S1},U_{S2}$共同作用时，$u_{bc}=u'_{bc}+u''_{bc}=2.4V$\\
+		\hline
+		\multirow{3}{*}{戴维南定理}&等效电势$U_{0}=-2.4V$\\
+		\multirow{3}{*}{}&等效电阻$R_{0}=6k\Omega$\\
+		\multirow{3}{*}{}&$u_{bc}=2.4V$\\
+		\hline
+		\end{tabular}
+		\caption{估算结果}
+		\label{table1}
+		\end{table}
+		\par
+		
+\section{原始数据}
+	\noindent
+	仪器编号：\par
+	电源->15028548、15028523\par
+	电压表->11029940\par
+	实验箱->11029483\\
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	\hline
+	$u_1/V$&0.50&1.00&1.50&2.00&2.50&3.00&3.50\\
+	\hline
+	$u_2/V$&-1.008&-2.009&-3.011&-4.012&-5.013&-6.014&-6.644\\
+	\hline
+	$\mu$&-2.016&-2.009&-2.007&-2.006&-2.005&-2.005&-1.898\\
+	\hline
+	\end{tabular}
+	\caption{原始数据1}
+	\label{table2}
+	\end{table}
+	\par
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+	\hline
+	测量原理&测量结果\\
+	\hline
+	直接法&$u_{bc}=2.383V$\\
+	\hline
+	\multirow{3}{*}{叠加定理}&$U_{S1}$作用，$U_{S2}=0$时，$u'_{bc}=-0.583V$\\
+	\multirow{3}{*}{}&$U_{S1}=0$，$U_{S2}$作用时，$u''_{bc}=2.967V$\\
+	\multirow{3}{*}{}&$U_{S1},U_{S2}$共同作用时，$u_{bc}=u'_{bc}+u''_{bc}=2.384V$\\
+	\hline
+	\multirow{3}{*}{戴维南定理}&等效电势$U_{0}=-2.251V$\\
+	\multirow{3}{*}{}&等效电阻$R_{0}=5743\Omega$\\
+	\multirow{3}{*}{}&$u_{bc}=2.385V$\\
+	\hline
+	\end{tabular}
+	\caption{原始数据2}
+	\label{table3}
+	\end{table}
+	\par
+\section{终结报告}
+	\subsection{数据处理}
+	理论$u_1$值为$-0.4V$,实测$\mu$值为$-2.016$,根据表\ref{table1}计算如下：
+		\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|}
+		\hline
+		求解方法&求解结果\\
+		\hline
+		列写电路方程&$u_{bc}=\dfrac{R_3}{R_3+R_4-\mu R_4}(\mu U_{S1}-U_{S2})+U_{S2}=2.402V$\\
+		\hline
+		\multirow{3}{*}{叠加定理}&$U_{S1}$作用，$U_{S2}=0$时，$u'_{bc}=\dfrac{\mu U_{S1}R_3}{R_3+R_4-\mu R_4}=-0.602V$\\
+		\multirow{3}{*}{}&$U_{S1}=0$，$U_{S2}$作用时，$u''_{bc}=\dfrac{U_{S2}R_3}{\mu R_4-R_3-R_4}+U_{S2}=3.004V$\\
+		\multirow{3}{*}{}&$U_{S1},U_{S2}$共同作用时，$u_{bc}=u'_{bc}+u''_{bc}=2.402V$\\
+		\hline
+		\multirow{3}{*}{戴维南定理}&等效电势$U_{0}=\mu U_{S1}=-2.419V$\\
+		\multirow{3}{*}{}&等效电阻$R_{0}=|(1-\mu)R_4|=6032\Omega$\\
+		\multirow{3}{*}{}&$u_{bc}=U_{S2}-\dfrac{U_{S2}-U_0}{R_3+R_0}R_3=2.402V$\\
+		\hline
+		\end{tabular}
+		\caption{实测$\mu$值计算结果}
+		\label{table4}
+		\end{table}
+		\par
+		比较上述计算结果与理论估算值、实验测量值，可得，对于$u_{bc}$的数值，有实验测量值<理论估算值<上述计算值.\par
+		\pmb{误差分析:}\par
+		以$\mu$为自变量,$u_{bc}$为因变量得到函数
+		$$y=f(x)=\dfrac{1}{2-x}(1.2x-4)+4=\dfrac{1.2x-4}{2-x}+4=\dfrac{4-2.8x}{2-x}$$
+		对此函数求导可得
+		$$\dfrac{dy}{dx}=\dfrac{-2.8(2-x)-(-1)(4-2.8x)}{(2-x)^2}=-\dfrac{1.6}{(x-2)^2}<0$$
+		故函数在$x<2$时单调递减，由$\mu=-2.016<-2=\hat{\mu}$,得$\mu$实际测量值偏小，造成上述计算结果偏大.
+	\subsection{思考题}
+	\pmb{为什么实测$bc$两端开路电压的绝对值总小于理论值？}
+		\subsubsection{实际独立电压源}
+		实际电压源$S1$、$S2$存在内阻，分别设为$r_1$、$r_2$,$bc$两端开路时，
+		$$U_0=\mu u_1=\mu U_{S1}=-2.4V$$
+		$bc$两端短路时，
+		$$u_1=U_{S1}+\mu u_1$$
+		$$I_0=\dfrac{\mu u_1}{R_4}=-0.4mA$$
+		$$R_0=\dfrac{|U_0|}{|I_0|}=6k\Omega$$
+		\begin{align}
+		u_{bc}
+		&=U_{S2}-i(R_3+r_2)\nonumber\\
+		&=U_{S2}-\dfrac{U_{S2}-U_0}{R_3+R_0+r_2}(R_3+r_2)\nonumber\\
+		&=4-\dfrac{4+2.4}{2+6+r_2}(2+r_2)\nonumber\\
+		&=2.4(\dfrac{16}{8+r_2}-1)\nonumber\\
+		&<2.4=\hat{u_{bc}}\nonumber
+		\end{align}
+		故实测值小于理论值.
+		\subsubsection{实际运算放大器}
+		使用更精确的运算放大器模型：
+		\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{cir3.png}
+		\caption{更精确的运算放大器模型}
+		\label{figure3}
+		\end{figure}
+		其中，
+		$$R_i=2M\Omega$$
+		$$R_0=10\Omega$$
+		$$R_1=50k\Omega$$
+		$$R_2=100k\Omega$$
+		$$R_3=2k\Omega$$
+		$$R_4=2k\Omega$$
+		$$U_{S1}=1.2V$$
+		$$U_{S2}=4V$$
+		$$A=10^5$$
+		由前述条件得输入电压未达到运算放大器的饱和输入电压，工作在线性区域，$bc$两端开路时，\par
+		\begin{center}
+		%\textbf{方程组\\}
+		\(
+		\begin{cases}
+		u=i_2R_i\\
+		u=i_1R_1+U_{S1}+i_1R_4\\
+		u=i_3R_2+i_3R_4+Au\\
+		i_1+i_2+i_3=0\\
+		u_1=i_3R_0+Au\\
+		u_2=i_1R_4\\
+		U_0=u_1-u_2
+		\end{cases}
+		\)\par
+		\end{center}
+		代入数据解得，
+		$$U_0=-2.2616V$$
+		当$bc$两端短路时，
+		\begin{center}
+		\(
+		\begin{cases}
+		(R_1+R_i+R_4)I_1-R_iI_2-R_4I_3=U_S\\
+		(R_2+R_0+R_i)I_2-R_iI_1-R_0I_3=-AU\\
+		(R_0+R_4)I_3-R_4I_1-R_0I_2=AU\\
+		U=(I_1-I_2)R_i\\
+		I_0=I_3
+		\end{cases}
+		\)\par
+		\end{center}
+		代入数据解得，
+		$$I_0=-0.392mA$$
+		$$R_0=\dfrac{|U_0|}{|I_0|}=5.769k\Omega$$
+		$$u_{bc}=U_{S2}-\dfrac{U_{S2}-U_0}{R_3+R_0}R_3=2.388V<2.4V=\hat{u_{bc}}$$
+		故实测值小于理论值.
+		\subsubsection{对$\mu$值的讨论}
+		更精确的运算放大器模型：
+		
+	\subsection{结论}
+	当运算放大器的输入电压小于能够使其输出电压达到饱和的输入电压值时，运算放大器近似呈线性，能够根据输入电压成倍地输出电压，对外具有压控电压源的特性，可以用线性模型近似分析.
+	\subsection{感想}
+	我们在理论分析中建立模型时，大多是在理想状态下分析，这样不免与实际产生不符，而实验是检验模型合理性的方法之一.理论模型可以解释实验产生的现象，而实验可以进一步修正模型，二者相互促进，是我们对问题的认识渐趋深入.在实际应用中，我们应当既考虑到运算的简便性，又考虑到模型的准确性，在简便性与准确性之间权衡折中，找到最适合解决某个问题的模型.
+	
+\newpage
+\begin{appendices}
+	\renewcommand{\thesection}{附录 \Alph{section}}
+	\section{原始数据}
+		\begin{figure}[H]
+		\centering
+		\begin{turn}{0}
+		\includegraphics[scale=0.1]{cirdata2.jpg}
+		\end{turn}
+		\caption{原始数据}
+		\label{figure5}
+		\end{figure}
+\end{appendices}
+\end{document}

@@ -1,0 +1,161 @@
+\documentclass[12pt,a4paper,oneside,left=3.18,right=3.18,top=2.54,bottom=2.54]{ctexart}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{appendix}
+\usepackage{rotating}
+
+\title{实验1：三端变阻器 \\ 实验报告}
+\author{崔亮 2021012343}
+\date{\today}
+\linespread{1.5}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+本实验主要研究三端变阻器的分压特性，以及影响变阻器分压的各种因素，并以此为根据，结合需求选择合适的变阻器设计分压电路.
+\end{abstract}
+\newpage
+\tableofcontents
+\newpage
+
+\section{预习报告}
+	\subsection{电路图}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{cir1.jpg}
+		\caption{分压器式（三端接法）}
+		\label{figure1}
+		\includegraphics[scale=1]{cir2.jpg}
+		\caption{改进电路}
+		\label{figure2}
+		\end{figure}
+	\subsection{结果估算}
+		假设使用理想电源、理想电流表、理想电压表，
+		则分压器部分最大电流
+		\begin{align}
+		I_0 & = \dfrac{U_s}{(R_0-R_2)+\dfrac{1}{\dfrac{1}{R_2}+\dfrac{1}{R_{fz}}}}\nonumber\\
+		 & = \dfrac{U_s(R_2+R_{fz})}{R_0(R_2+R_{fz})-R_2^2}
+		\end{align}
+		其最大值为0.022A，当且仅当$R_2=1000\Omega$时取得.
+		分压器允许通过的最大电流
+		$$I_{e}=\sqrt{\dfrac{P_{0e}}{R_0}}$$
+		其值为0.1A.
+		由0.022A$<$0.1A,得分压器中的最大电流不会超过每挡额定值.
+		负载上的电流
+		\begin{align}
+		I_{fz} & = \dfrac{I_0R_2}{R_{fz}+R_2}\nonumber\\
+		 & = \dfrac{U_sR_2}{R_0(R_2+R_{fz})-R_2^2}
+		\end{align}
+		其最大值为0.02A，当且仅当$R_2=1000\Omega$时取得.
+		负载允许通过的最大电流
+		$$I_{fze}=\sqrt{\dfrac{P_{fze}}{R_{fz}}}=0.1A$$
+		由0.02A$<$0.1A，得负载中的最大电流不会超过额定值.\par
+		下面估计实验结果，原电路$R_{fz}$上的电压为
+		\begin{align}
+		U_{fz} & = \dfrac{\dfrac{U_S}{\dfrac{1}{R_2}+\dfrac{1}{R_{fz}}}}{(R_0-R_2)+\dfrac{1}{\dfrac{1}{R_2}+\dfrac{1}{R_{fz}}}}\nonumber\\
+		 & = \dfrac{U_SR_2R_{fz}}{R_0(R_2+R_{fz})-R_2^2}
+		\end{align}
+		改进电路$R_{fz}$上的电压为
+		\begin{align}
+		U_{fz} & = \dfrac{\dfrac{U_S}{\dfrac{1}{R_2}+\dfrac{1}{R_{fz}}}}{\dfrac{1}{\dfrac{1}{R_0-R_2}+\dfrac{1}{R}}+\dfrac{1}{\dfrac{1}{R_2}+\dfrac{1}{R_{fz}}}}\nonumber\\
+		 & = \dfrac{U_SR_2R_{fz}(R+R_0-R_2)}{R_0(R_2(R+R_{fz})+RR_{fz})-R_2^2(R+R_{fz})}
+		\end{align}
+		\par
+\section{原始数据}
+	\noindent
+	仪器编号：\par
+	电源->21039190\par
+	电压表->15021565\par
+	电流表->15028064\par
+	电阻箱->11029495\\
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		\multicolumn{2}{|c|}{\multirow{2}{*}{$U_{fz}(V)$}} & \multicolumn{11}{c|}{$R_2$($\Omega$)$$}\\
+		\cline{3-13}
+		\multicolumn{2}{|c|}{}&0&100&200&300&400&500&600&700&800&900&1000\\
+		\hline
+		\multirow{5}{*}{$R_{fz}$($\Omega$)$$}&$\infty$&0.00&0.20&0.40&0.60&0.80&1.00&1.20&1.40&1.60&1.80&2.00\\
+		\cline{2-13}
+		\multirow{5}{*}{}&10k&0.00&0.20&0.39&0.59&0.78&0.98&1.17&1.37&1.57&1.78&2.00\\
+		\cline{2-13}
+		\multirow{5}{*}{}&1k&0.00&0.18&0.34&0.50&0.64&0.80&0.97&1.16&1.38&1.65&2.00\\
+		\cline{2-13}
+		\multirow{5}{*}{}&100&0.00&0.11&0.15&0.20&0.23&0.28&0.35&0.45&0.61&0.95&2.00\\
+		\cline{2-13}
+		\multirow{5}{*}{}&100*&0.00&0.72&0.86&0.92&0.97&1.00&1.03&1.08&1.14&1.29&2.00\\
+		\hline
+		\end{tabular}
+		\caption{实验原始数据}
+		\label{table1}
+	\end{table}
+	\par
+\section{终结报告}
+	\subsection{数据处理}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{cirex1.png}
+		\caption{$U_{fz}$随$R_2$变化图像}
+		\label{figure3}
+		\end{figure}
+	\subsection{思考题}
+		\subsubsection{思考题1：原电路与改进电路相比各有什么优缺点？}
+		设$y=\dfrac{U_{fz}}{U_S}$,$x=\dfrac{R_2}{R_0}$,$K=\dfrac{R_{fz}}{R_0}=0.1$,则代入数据可得改进前电路函数
+		\begin{align}y_1 & =f(x)=\dfrac{Kx}{-x^2+x+K}=\dfrac{0.1x}{-x^2+x+0.1}\end{align}
+		\begin{align}\dfrac{dy_1}{dx} & =\dfrac{0.1x^2+0.01}{(-x^2+x+0.1)^2}\end{align}
+		改进后电路函数
+		\begin{align}y_2 & =g(x)=\dfrac{x(K+1-x)}{-2x^2+2x+K}=\dfrac{x(1.1-x)}{-2x^2+2x+0.1}\end{align}
+		\begin{align}\dfrac{dy_2}{dx} & =\dfrac{0.2x^2-0.2x+0.11}{(-2x^2+2x+0.1)^2}\end{align}
+		得到$\dfrac{dy_1}{dx}$与$\dfrac{dy_2}{dx}$在不同的$x$下取值如下表：
+		\begin{table}[H]
+		\centering
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			$x$&0.0&0.1&0.2&0.3&0.4&0.5&0.6&0.7&0.8&0.9&1.0\\
+			\hline
+			$\dfrac{dy_1}{dx}$&1.00&0.30&0.21&0.20&0.22&0.29&0.40&0.61&1.09&2.52&11.00\\
+			\hline
+			$\dfrac{dy_2}{dx}$&11.00&1.17&0.44&0.25&0.18&0.17&0.18&0.25&0.44&1.17&11.00\\
+			\hline
+			\end{tabular}
+		\caption{两种电路输出电压变化率}
+		\label{table2}
+		\end{table}
+		\noindent 根据表中数据绘制图像如下：
+		\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{cirex2.png}
+		\caption{$dy_1/dx$和$dy_2/dx$随$x$变化图像}
+		\label{figure4}
+		\end{figure}
+		一方面，分析图\ref{figure4}可知，改进前的电路在$R_2$与$R_0$比值较大时，输出电压的变化率较大；改进后的电路在$R_2$与$R_0$比值较小或较大时，输出电压的变化率都很大，因此，在$R_2$与$R_0$比值较小时应选用改进前的电路来稳定调节电压.\par
+		另一方面，分析图\ref{figure3}可知，改进后的输出电压能在更大的阻值范围内,使电压变化维持在0.5V以内；此外，改进后电路的稳定输出电压为1V左右，远大于改进前的电路，电源的能量转化率更高.\par
+		综上，改进前的电路适于在电阻比适中、要求输出电压较大的情况下使用；改进后的电路适于在对输出电压要求较低、希望在电阻比较小的范围内精准调控电压的情况下使用.\\
+		\subsubsection{思考题2：如何选取$R_{fz}/R_0$的值以得到实用的调压特性？}
+		由图像及前述分析可知，当$R_{fz}/R_0$比值较小时,电路的调压能力较差，而$R_{fz}/R_0$接近无穷时,输出电压变化几乎呈线性，易于调整电压；但当$R_0$值过小或负载电流过大时,易引起电路内电流超过变阻器额定电流，造成变阻器损坏.故应在保证变阻器安全工作的前提下,尽量选用阻值较小的变阻器，并且尽量避免变阻器调挡过大，使负载直接接在电源两端.\\
+	\subsection{结论}
+	1.三端变阻器的分压式接法适用于负载电阻较大、负载电流较小、要求从零开始调节电压并且可调范围较大的情况下，此法能够以接近线性的变化提供电压；\par
+	2.改进后的电路能够在更大的电阻比范围内进行电压调控，并且能在负载电阻较小的情况下提供更大的稳定电压；\par
+	3.调压电路的性能受许多因素影响，主要包括：变阻器的特性、电路的接法、负载的特性等.\par
+	\subsection{感想}
+	在大学参加的第一次实验课，感觉与以往很不相同，无论是从仪器的精准程度、操作使用的专业程度便利程度，还是从实验设计的严谨性、拓展实验的创新性，都超乎我之前的想象.希望在如此优越的硬件条件之下，今后能够更多地以创新的视野看待实验、享受实验的过程、领略更广阔的知识领域.
+
+	
+\newpage
+\begin{appendices}
+	\renewcommand{\thesection}{附录 \Alph{section}}
+	\section{原始数据}
+		\begin{figure}[H]
+		\centering
+		\begin{turn}{270}
+		\includegraphics[scale=0.1]{cirdata1.jpg}
+		\end{turn}
+		\caption{原始数据}
+		\label{figure5}
+		\end{figure}
+\end{appendices}
+\end{document}
